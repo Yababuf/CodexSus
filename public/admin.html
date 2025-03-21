@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .admin-header {
+            background: #27262e;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+        .admin-nav {
+            background: #fff;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .admin-nav a {
+            color: #d9442d;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1.1rem;
+        }
+        .admin-nav a:hover {
+            text-decoration: underline;
+        }
+        .admin-content {
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <h1>Админ-панель</h1>
+    </div>
+    <div class="admin-nav">
+        <a href="/admin">Главная</a>
+        <a href="/admin/new-check">Новая проверка</a>
+        <a href="/admin/statistics">Статистика</a>
+        <a href="/logout">Выйти</a>
+    </div>
+    <div class="admin-content">
+        <h2>Добро пожаловать в админ-панель!</h2>
+        <p>Здесь вы можете управлять проверками и просматривать статистику.</p>
+    </div>
+</body>
+</html>

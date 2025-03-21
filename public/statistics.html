@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статистика</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .admin-header {
+            background: #27262e;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+        .admin-nav {
+            background: #fff;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .admin-nav a {
+            color: #d9442d;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1.1rem;
+        }
+        .admin-nav a:hover {
+            text-decoration: underline;
+        }
+        .statistics-container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            margin: 2rem auto;
+        }
+        .statistics-container h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f57a29;
+            color: #fff;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #14bece;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <h1>Админ-панель</h1>
+    </div>
+    <div class="admin-nav">
+        <a href="/admin">Главная</a>
+        <a href="/admin/new-check">Новая проверка</a>
+        <a href="/admin/statistics">Статистика</a>
+        <a href="/logout">Выйти</a>
+    </div>
+    <div class="statistics-container">
+        <h2>Статистика переходов</h2>
+        <table id="statisticsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Уникальный ID ссылки</th>
+                    <th>Email</th>
+                    <th>Переход</th>
+                    <th>Дата</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Данные будут загружены сюда -->
+            </tbody>
+        </table>
+        <a href="/admin" class="back-link">Назад в админку</a>
+    </div>
+
+    <script>
+        // Загрузка статистики с сервера
+        async function loadStatistics() {
+            try {
+                const response = await fetch('/api/statistics');
+                if (!response.ok) {
+                    throw new Error('Ошибка при загрузке данных');
+                }
+                const data = await response.json();
+
+                const tableBody = document.querySelector('#statisticsTable tbody');
+                tableBody.innerHTML = ''; // Очищаем таблицу
+
+                data.forEach(stat => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${stat.id}</td>
+                        <td>${stat.link_id}</td>
+                        <td>${stat.email}</td>
+                        <td>${stat.clicked ? 'Да' : 'Нет'}</td>
+                        <td>${new Date(stat.date).toLocaleString()}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('Не удалось загрузить статистику. Проверьте консоль для подробностей.');
+            }
+        }
+
+        // Загружаем статистику при открытии страницы
+        loadStatistics();
+    </script>
+</body>
+</html>

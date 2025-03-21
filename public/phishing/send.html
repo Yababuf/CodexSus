@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>письмо</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header>
+        <h1></h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/theory/theory1.html">Теория</a></li>
+            <li><a href="/tests/test1.html">Тесты</a></li>
+            <li><a href="/phishing/send.html">test</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section>
+            <h2>Отправка тестового фишингового письма</h2>
+            <form id="phishingForm">
+                <label for="email">Введите email:</label>
+                <input type="email" id="email" name="email" required>
+                <button type="submit">Отправить</button>
+            </form>
+            <p id="result"></p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Ваша компания</p>
+    </footer>
+    <script>
+        document.getElementById('phishingForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            fetch('/send-phishing', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email })
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('result').textContent = data;
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                document.getElementById('result').textContent = 'Ошибка при отправке письма';
+            });
+        });
+    </script>
+</body>
+</html>

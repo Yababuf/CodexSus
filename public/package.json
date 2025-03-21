@@ -1,0 +1,16 @@
+{
+    "name": "cyber-security-awareness",
+    "version": "1.0.0",
+    "description": "Система повышения осведомленности в сфере ИБ",
+    "main": "server/server.js",
+    "scripts": {
+      "start": "node server/server.js"
+    },
+    "dependencies": {
+      "express": "^4.18.2",
+      "googleapis": "^120.0.0",
+      "sqlite3": "^5.1.6",
+      "express-session": "^1.17.3",
+      "mimemessage": "^1.0.0"
+    }
+  }

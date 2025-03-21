@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новая проверка</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        .form-container h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        .form-container label {
+            display: block;
+            margin: 1rem 0 0.5rem;
+            color: #555;
+        }
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .form-container textarea {
+            resize: vertical;
+            height: 150px;
+        }
+        .form-container button {
+            background-color: #d9442d;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+        .template-options {
+            margin: 1rem 0;
+        }
+        .template-options input {
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Создание фишингового письма</h2>
+        <form action="/admin/send-email" method="post">
+            <label>Тема письма:</label>
+            <input type="text" name="subject" required>
+
+            <label>Email получателя:</label>
+            <input type="email" name="email" required>
+
+            <label>Сообщение:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <div class="template-options">
+                <h3>Выберите шаблон:</h3>
+                <input type="radio" name="template" value="template1" onclick="insertTemplate('template1')"> Шаблон 1<br>
+                <input type="radio" name="template" value="template2" onclick="insertTemplate('template2')"> Шаблон 2<br>
+                <input type="radio" name="template" value="template3" onclick="insertTemplate('template3')"> Шаблон 3<br>
+            </div>
+
+            <button type="submit">Отправить</button>
+        </form>
+        <a href="/admin">Назад в админку</a>
+    </div>
+
+    <script>
+        function insertTemplate(template) {
+            const textArea = document.getElementById("message");
+            const templates = {
+                "template1": "Здравствуйте! Мы заметили необычную активность в вашей учетной записи. Пожалуйста, перейдите по следующей ссылке, чтобы подтвердить свою личность: <a href='/track/1'>Подтвердить</a>",
+                "template2": "Ваш аккаунт будет заблокирован через 24 часа, если вы не подтвердите свой профиль. Пройдите по ссылке для подтверждения: <a href='/track/2'>Подтвердить</a>",
+                "template3": "Ваши данные были использованы для входа с нового устройства. Пожалуйста, подтвердите свою личность, перейдя по ссылке: <a href='/track/3'>Подтвердить</a>"
+            };
+            textArea.value = templates[template];
+        }
+    </script>
+</body>
+</html>
